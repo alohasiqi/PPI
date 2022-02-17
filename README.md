@@ -3,7 +3,7 @@
 This program is a pipeline to generate JSON and XML files for use with Cytoscape for visualizing a protein-protein interaction network.
 
 ## Installation
-NetworkX
+Python NetworkX
 
 Cytoscape and the enhancedGraphics Package
 The enhancedGraphics Package is used for multi-color nodes and can be installed from the link:
@@ -46,7 +46,9 @@ A list of genes separated by newlines. Genes in this list always appear in the n
 
 Sample template
 Gene_1&nbsp;Gene_2&nbsp;consensusPathDB&nbsp;SFARI&nbsp;GIANT
+
 CACNG6&nbsp;RYR1&nbsp;0&nbsp;1&nbsp;0&nbsp;1
+
 H4C13&nbsp;TP53BP1&nbsp;1&nbsp;1&nbsp;0&nbsp;2
 
 
