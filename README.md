@@ -31,9 +31,9 @@ Options:
 A list of genes separated by newlines. Genes in this list always appear in the network.
 
 ### Annotation Input
-**Tab-delimited** file with annotations with the following columns
+**Tab-delimited** file with annotations with the following columns. Nodes will be assigned annotation_name as its label.
  - Gene name
- - Annotations (values must be binary 1 or 0 to be graphed)
+ - annotation_name (values must be binary 1 or 0 to be graphed)
  
 Gene&nbsp;&nbsp;annotation_name
 
@@ -42,7 +42,7 @@ ABCA10&nbsp;&nbsp;1
  
 
 ### Network File Input
-**Tab-delimited** edge list file.
+**Tab-delimited** edge list file. No header required.
 - Gene Node 1
 - Gene Node 2
 - Database Edge (1 - Edge exists, 0 - Edge does not)
@@ -50,7 +50,6 @@ ABCA10&nbsp;&nbsp;1
 - Database Edge
 - DBCount (integer)
 
-Sample template
 
 Gene_1&nbsp;&nbsp;Gene_2&nbsp;&nbsp;consensusPathDB&nbsp;&nbsp;SFARI&nbsp;&nbsp;GIANT
 
