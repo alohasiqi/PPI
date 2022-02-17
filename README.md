@@ -45,10 +45,10 @@ A list of genes separated by newlines. Genes in this list always appear in the n
 - DBCount (integer)
 
 Sample template
+
 Gene_1&nbsp;Gene_2&nbsp;consensusPathDB&nbsp;SFARI&nbsp;GIANT
 
 CACNG6&nbsp;RYR1&nbsp;0&nbsp;1&nbsp;0&nbsp;1
-
 H4C13&nbsp;TP53BP1&nbsp;1&nbsp;1&nbsp;0&nbsp;2
 
 
