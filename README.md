@@ -46,10 +46,11 @@ A list of genes separated by newlines. Genes in this list always appear in the n
 
 Sample template
 
-Gene_1&nbsp;Gene_2&nbsp;consensusPathDB&nbsp;SFARI&nbsp;GIANT
+Gene_1&nbsp;&nbsp;Gene_2&nbsp;&nbsp;consensusPathDB&nbsp;&nbsp;SFARI&nbsp;&nbsp;GIANT
 
-CACNG6&nbsp;RYR1&nbsp;0&nbsp;1&nbsp;0&nbsp;1
-H4C13&nbsp;TP53BP1&nbsp;1&nbsp;1&nbsp;0&nbsp;2
+CACNG6&nbsp;&nbsp;RYR1&nbsp;&nbsp;0&nbsp;&nbsp;1&nbsp;&nbsp;0&nbsp;1
+
+H4C13&nbsp;&nbsp;TP53BP1&nbsp;&nbsp;1&nbsp;&nbsp;1&nbsp;&nbsp;0&nbsp;2
 
 
 
