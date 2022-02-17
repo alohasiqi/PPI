@@ -33,7 +33,12 @@ A list of genes separated by newlines. Genes in this list always appear in the n
 **Tab-delimited** file with annotations with the following columns
  - Gene name
  - Annotations (values must be binary 1 or 0 to be graphed)
- - Gene	annotation_name
+ 
+Gene&nbsp;&nbsp;annotation_name
+
+ABAT&nbsp;&nbsp;1
+ABCA10&nbsp;&nbsp;1
+ 
 
 ### Network File Input
 **Tab-delimited** edge list file.
