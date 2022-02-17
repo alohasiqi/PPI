@@ -22,9 +22,10 @@ Required arguments:
                                                     
 Options:
   -o <output>     name of output .json file. Default network.json
+```
 
 ## Input Parameter File
-```
+
 ### Candidate Input File
 
 A list of genes separated by newlines. Genes in this list always appear in the network.
