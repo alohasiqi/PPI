@@ -13,7 +13,7 @@ https://apps.cytoscape.org/apps/enhancedgraphics
 ## Usage
 ```
 Usage:
-    NetworkPPI.py -c <input candidate file> -a < annotations files> -n <network edge list> [ -o <output> -d <degree> -e <edge_dbcount>]
+    python NetworkPPI.py -c <input candidate file> -a < annotations files> -n <network edge list> [ -o <output> -d <degree> -e <edge_dbcount>]
 
 Required arguments:
    -c <input candidate file>     path to candidate input file or directory. 
