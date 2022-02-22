@@ -28,18 +28,6 @@ args = parser.parse_args()
 g = nx.read_edgelist(args.network,create_using=nx.Graph(), nodetype = str,data=(("consensus", bool),("STRING", bool),("GIANT", bool),("DBCount", int),))
 
 
-# Assign edge colors based on number of databases that indicate a PPI connection
-edges = g.edges()
-for u,v in edges:
-    dbcount = g[u][v]['DBCount']
-    if dbcount == 1:
-        g[u][v]["color"] = "red"
-    elif dbcount == 2:
-        g[u][v]["color"] = "green"
-    elif dbcount == 3:
-        g[u][v]["color"] = "blue"
-
-
 #Assign node label with candidate
 attrs = dict()
 with open(args.candidate, "r") as file:
