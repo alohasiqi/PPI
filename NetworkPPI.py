@@ -118,15 +118,15 @@ subgraph.remove_nodes_from(list(nx.isolates(subgraph)))
 
 #Optional pruning of edges by database count
 if args.dbcount is not None:
-    selected_edges = [(u,v) for u,v,e in subgraph.edges(data='DBCount') if e < args.dbcount]
-    a.remove_edges_from(selected_edges)
-    a.remove_nodes_from(list(nx.isolates(subgraph)))
+    selected_edges = [(u,v) for u,v,e in subgraph.edges(data='DBCount') if e < int(args.dbcount)]
+    subgraph.remove_edges_from(selected_edges)
+    subgraph.remove_nodes_from(list(nx.isolates(subgraph)))
 
 #Optional pruning of nodes by degree
 if args.degree is not None:
-    selected_nodes = [node for node,degree in dict(subgraph.degree()).items() if degree < args.degree]
-    a.remove_nodes_from(selected_nodes)
-    a.remove_nodes_from(list(nx.isolates(subgraph)))
+    selected_nodes = [node for node,degree in dict(subgraph.degree()).items() if degree < int(args.degree)]
+    subgraph.remove_nodes_from(selected_nodes)
+    subgraph.remove_nodes_from(list(nx.isolates(subgraph)))
 
 
 #Convert NetworkX format to JSON
