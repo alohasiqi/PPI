@@ -13,15 +13,18 @@ https://apps.cytoscape.org/apps/enhancedgraphics
 ## Usage
 ```
 Usage:
-       NetworkPPI.py -c <input candidate file> -a < annotations files> -n <network edge list> [ -o <output> ]
+    NetworkPPI.py -c <input candidate file> -a < annotations files> -n <network edge list> [ -o <output> -d <degree> -e <edge_dbcount>]
 
 Required arguments:
-  -c <input candidate file>	path to candidate input file. 
-  -a <annotations files>		path to directory with annotation files. 
-  -n <network edge list>		path to network edge list. 
+   -c <input candidate file>     path to candidate input file or directory. 
+   -a <annotations files>        path to directory with annotation files. 
+   -n <network edge list>        path to network edge list.
+
                                                     
 Options:
-  -o <output>     name of output .json file. Default network.json
+   -d <degree>     Remove nodes with degree less than the specified value
+   -e <edge_dbcount>     Remove edges with a DBCount less than the specified value 
+   -o <output>     name of output .json file. Default network.json
 ```
 
 ## Input Parameter File
