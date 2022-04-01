@@ -29,7 +29,7 @@ def arg_parser(argv=None):
     parser.add_argument('--network','-n', default ='20211215.combinedDB.ConsensusPathDB_v35_StringDB_v11.5.GIANTv2.simplified_filtered.tsv', dest="network")
     parser.add_argument('--degree','-d', dest="degree")
     parser.add_argument('--edge_dbcount','-e', dest="dbcount")
-    parser.add_argument('--int_nodes','-i', default = False,dest="intermediate_nodes")
+    parser.add_argument('--int_nodes','-i', action='store_true',default = False,dest="intermediate_nodes")
     parser.add_argument('--output','-o', default='network_out.json', dest="output")
     return parser.parse_args(argv)
 
@@ -98,8 +98,8 @@ def clean_intermediate_nodes(g,candidate_names,annotation_names):
     Returns networkX object
     """
 
-    candidate_nodes = get_named_nodes(subgraph,candidate_names)
-    annotation_nodes = get_named_nodes(subgraph,annotation_names)
+    candidate_nodes = get_named_nodes(g,candidate_names)
+    annotation_nodes = get_named_nodes(g,annotation_names)
 
     nodes_to_delete = set()
 
@@ -129,7 +129,6 @@ def get_named_nodes(g,name):
     Returns list of nodes
     """
     node_set = set()
-
     for i in name:
         a = nx.get_node_attributes(g,i)
         node_set.update(list(a.keys()))
@@ -149,26 +148,26 @@ def prune_network(g,degree_filter,edge_filter):
 
     #Optional pruning of edges by database count
     if edge_filter is not None:
-        selected_edges = [(u,v) for u,v,e in subgraph.edges(data='DBCount') if e < int(edge_filter)]
-        subgraph.remove_edges_from(selected_edges)
-        subgraph.remove_nodes_from(list(nx.isolates(subgraph)))
+        selected_edges = [(u,v) for u,v,e in g.edges(data='DBCount') if e < int(edge_filter)]
+        g.remove_edges_from(selected_edges)
+        g.remove_nodes_from(list(nx.isolates(g)))
 
     #Optional pruning of nodes by degree
     if degree_filter is not None:
-        selected_nodes = [node for node,degree in dict(subgraph.degree()).items() if degree < int(degree_filter)]
-        subgraph.remove_nodes_from(selected_nodes)
-        subgraph.remove_nodes_from(list(nx.isolates(subgraph)))
-    return subgraph
+        selected_nodes = [node for node,degree in dict(g.degree()).items() if degree < int(degree_filter)]
+        g.remove_nodes_from(selected_nodes)
+        g.remove_nodes_from(list(nx.isolates(g)))
+    return g
 
 
-def generate_network(candidate_path,annotation_path):
+def generate_network(g,candidate_path,annotation_path):
     """
     Generate NetworkX file
 
     Parameters:
     args: arg_parser arguments (See arg_parser for details)
     
-    Returns networkX Object
+    Returns networkX Object, candidate_node_headers, annotation_name_headers
     """
     node_list = set()
     if os.path.isdir(candidate_path):
@@ -182,8 +181,6 @@ def generate_network(candidate_path,annotation_path):
 
         candidates = get_named_nodes(g,candidate_names)
 
-
-  
     node_list = node_list.union(candidates)
 
     #Assign annotation values.
@@ -202,9 +199,9 @@ def generate_network(candidate_path,annotation_path):
     subgraph = nx.Graph(h)
 
     #Optionally Remove Isolated Nodes from file
-    #subgraph.remove_nodes_from(list(nx.isolates(subgraph)))
+    subgraph.remove_nodes_from(list(nx.isolates(subgraph)))
 
-    return subgraph
+    return subgraph,candidate_names,annotation_names
 
 
 
@@ -213,13 +210,15 @@ if __name__ == "__main__":
     args = arg_parser()
 
     # Load in Edge List.
-    g = nx.read_edgelist(args.network,create_using=nx.Graph(), nodetype = str,data=(("consensus", bool),("STRING", bool),("GIANT", bool),("DBCount", int),))
+    graph = nx.read_edgelist(args.network,create_using=nx.Graph(), nodetype = str,data=(("consensus", bool),("STRING", bool),("GIANT", bool),("DBCount", int),))
     
-    subgraph = generate_network(args.candidates,args.annotations)
+    subgraph,candidate_names,annotation_names = generate_network(graph,args.candidates,args.annotations)
+
     subgraph = prune_network(subgraph, args.degree, args.dbcount)
 
     if args.intermediate_nodes:
-        subgraph = clean_intermediate_nodes(subgraph,args.candidates,args.annotations)
+        subgraph = clean_intermediate_nodes(subgraph,candidate_names,annotation_names)
+
 
     #Convert NetworkX format to JSON
     cy = nx.readwrite.json_graph.cytoscape_data(subgraph)
