@@ -5,7 +5,7 @@ import os
 import json
 
 # Usage:
-#        NetworkPPI.py -c <input candidate file> -a < annotations files> -n <network edge list> [ -o <output> -d <degree> -e <edge_dbcount> -i <int_nodes>]
+#        NetworkPPI.py -c <input candidate file> -a < annotations files> -n <network edge list> [ -o <output> -d <degree> -e <edge_dbcount>]
 
 def arg_parser(argv=None):
     """
@@ -161,7 +161,7 @@ def prune_network(g,degree_filter,edge_filter):
     return subgraph
 
 
-def generate_network(args):
+def generate_network(candidate_path,annotation_path):
     """
     Generate NetworkX file
 
@@ -171,14 +171,14 @@ def generate_network(args):
     Returns networkX Object
     """
     node_list = set()
-    if os.path.isdir(args.candidates):
-        candidate_names = dir_annotation(g,args.candidates)
+    if os.path.isdir(candidate_path):
+        candidate_names = dir_annotation(g,candidate_path)
         candidates = get_named_nodes(g,candidate_names)
 
     #Read in candidate file
-    elif os.path.isfile(args.candidates):
+    elif os.path.isfile(candidate_path):
         candidate_names = []
-        candidate_names.append(file_annotation(g,args.candidates))
+        candidate_names.append(file_annotation(g,candidate_path))
 
         candidates = get_named_nodes(g,candidate_names)
 
@@ -187,8 +187,8 @@ def generate_network(args):
     node_list = node_list.union(candidates)
 
     #Assign annotation values.
-    if args.annotations is not None:
-        annotation_names = dir_annotation(g,args.annotations)
+    if annotation_path is not None:
+        annotation_names = dir_annotation(g, annotation_path)
         annotation_nodes = get_named_nodes(g, annotation_names)
 
         node_list = node_list.union(annotation_nodes)
@@ -215,7 +215,7 @@ if __name__ == "__main__":
     # Load in Edge List.
     g = nx.read_edgelist(args.network,create_using=nx.Graph(), nodetype = str,data=(("consensus", bool),("STRING", bool),("GIANT", bool),("DBCount", int),))
     
-    subgraph = generate_network(args)
+    subgraph = generate_network(args.candidates,args.annotations)
     subgraph = prune_network(subgraph, args.degree, args.dbcount)
 
     if args.intermediate_nodes:
