@@ -5,7 +5,7 @@ import os
 import json
 
 # Usage:
-#        NetworkPPI.py -c <input candidate file> -a < annotations files> -n <network edge list> [ -o <output> -d <degree> -e <edge_dbcount>]
+#        NetworkPPI.py -c <input candidate file> -a < annotations files> -n <network edge list> [ -o <output> -d <degree> -e <edge_dbcount> -i <int_nodes>]
 
 def arg_parser(argv=None):
     """
