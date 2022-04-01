@@ -219,7 +219,6 @@ if __name__ == "__main__":
     if args.intermediate_nodes:
         subgraph = clean_intermediate_nodes(subgraph,candidate_names,annotation_names)
 
-
     #Convert NetworkX format to JSON
     cy = nx.readwrite.json_graph.cytoscape_data(subgraph)
     #Set positional data. Required for Cytoscape.
