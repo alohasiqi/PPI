@@ -116,6 +116,8 @@ def clean_intermediate_nodes(g,candidate_names,annotation_names):
         if counter < 2:
             nodes_to_delete.add(i)
     g.remove_nodes_from(nodes_to_delete)
+    g.remove_nodes_from(list(nx.isolates(g)))
+
     return g
 
 def get_named_nodes(g,name):
