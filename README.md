@@ -13,19 +13,25 @@ https://apps.cytoscape.org/apps/enhancedgraphics
 ## Usage
 ```
 Usage:
-    python NetworkPPI.py -c <input candidate file> -a < annotations files> -n <network edge list> [ -o <output> -d <degree> -e <edge_dbcount>]
+       NetworkPPI.py -c <input candidate file> -a < annotations files> -n <network edge list> [ -o <output> -d <degree> -i <int_nodes> -e <edge_dbcount> -m <connection_number> -r <rm_dupintermediates>]
 
-Required arguments:
-   -c <input candidate file>     path to candidate input file or directory. 
-   -a <annotations files>        path to directory with annotation files. 
-   -n <network edge list>        path to network edge list.
-
+    Required arguments:
+  -c <input candidate file>     path to candidate input file. 
+  -a <annotations files>        path to directory with annotation files. 
+  -n <network edge list>        path to network edge list.
                                                     
-Options:
-   -d <degree>     Remove nodes with degree less than the specified value
-   -e <edge_dbcount>     Remove edges with a DBCount less than the specified value 
-   -o <output>     name of output .json file. Default network.json
+    Options:
+  -d <degree>     Remove nodes with degree less than the specified value
+  -e <edge_dbcount>     Remove edges with a DBCount less than the specified value
+  -dg <degree_greater> Remove edges with a degree greater than the specified value 
+  -i <int_nodes>   Flag to remove annotation nodes that do not connect to at least 2 candidate nodes
+  -s <subgraph_id> Specific specific candidate gene lists to graph
+  -o <output>     name of output .json file. Default network.json
+  -m <connection_number>    Add intermediate nodes to the graph that connect to at least(>) a number of candidate genes (connection_count)
+  -r <rm_dupintermediates>    Remove intermediate nodes that have the same connections to the candidate/desired nodes and randomly keep one representative intermediate node, valid only when -m <connection_number>  is not None
 ```
+## Dependencies
+Python packages: pandas, networkx
 
 ## Input Parameter File
 
@@ -41,6 +47,7 @@ A list of genes separated by newlines. Genes in this list always appear in the n
 Gene&nbsp;&nbsp;annotation_name
 
 ABAT&nbsp;&nbsp;1
+
 
 ABCA10&nbsp;&nbsp;1
  
@@ -60,6 +67,5 @@ Gene_1&nbsp;&nbsp;Gene_2&nbsp;&nbsp;consensusPathDB&nbsp;&nbsp;SFARI&nbsp;&nbsp;
 CACNG6&nbsp;&nbsp;RYR1&nbsp;&nbsp;0&nbsp;&nbsp;1&nbsp;&nbsp;0&nbsp;1
 
 H4C13&nbsp;&nbsp;TP53BP1&nbsp;&nbsp;1&nbsp;&nbsp;1&nbsp;&nbsp;0&nbsp;2
-
 
 
