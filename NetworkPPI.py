@@ -1,12 +1,13 @@
+import pandas as pd
+from collections import Counter
 import csv
 import networkx as nx
 import argparse, sys
 import os
 import json
-import pandas as pd
-from collections import Counter
 import warnings
 from pathlib import Path
+
 
 # Usage:
 #        NetworkPPI.py -c <input candidate file> -a < annotations files> -n <network edge list> [ -o <output> -d <degree> -i <int_nodes> -e <edge_dbcount> -m <connection_number> -r <rm_dupintermediates>]
@@ -29,8 +30,7 @@ def arg_parser(argv=None):
   -o <output>     name of output .json file. Default network.json
   -m <connection_number>    Add intermediate nodes to the graph that connect to at least(>) a number of candidate genes (connection_count)
   -r <rm_dupintermediates>    Remove intermediate nodes that have the same connections to the candidate/desired nodes and randomly keep one representative intermediate node, valid only when -m <connection_number>  is not None
-
-    """
+  """
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--candidates","-c", dest="candidates", type=Path)
@@ -61,7 +61,8 @@ def dir_annotation(g,path):
     annotation_names = []
     for annotation_file in os.listdir(path):
         attrs.clear()
-        with open(path + "/"+ annotation_file, "r") as file:
+        file = path / f'{annotation_file}'
+        with open(file, "r") as file:
             reader = csv.reader(file, delimiter='\t')
             header = next(reader)
             for row in reader:
@@ -293,9 +294,7 @@ def generate_network(g,network,candidate_path,annotation_path,subname,connection
     subgraph.remove_nodes_from(list(nx.isolates(subgraph)))
 
     return subgraph,candidate_names,annotation_names
-
-
-
+        
 
 if __name__ == "__main__":
     args = arg_parser()
@@ -328,3 +327,5 @@ if __name__ == "__main__":
     #Write to output file.
     with open(args.output, "w") as outfile:
          json.dump(cy, outfile)
+         
+         
