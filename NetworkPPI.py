@@ -293,7 +293,7 @@ def generate_network(g,network,candidate_path,annotation_path,subname,connection
     #Remove Isolated Nodes from file
     subgraph.remove_nodes_from(list(nx.isolates(subgraph)))
 
-    return subgraph,candidate_names,annotation_names
+    return subgraph,candidate_names,annotation_names,network_edges
         
 
 if __name__ == "__main__":
@@ -303,7 +303,7 @@ if __name__ == "__main__":
     #node1  node2   consensus_interactionType   consensus_score STRING_neighborhood STRING_fusion   STRING_cooccurence  STRING_homology STRING_coexpression STRING_experiments  STRING_database STRING_textmining   STRING_combined_score   GIANT_score DataBaseCount   
     gmax = nx.read_edgelist(args.network,create_using=nx.Graph(), nodetype = str,data=(("consensus_interactionType", str),("consensus_score", str),("STRING_neighborhood", str),("STRING_fusion", str),("STRING_cooccurence", str),("STRING_homology", str),("STRING_coexpression", str),("STRING_experiments", str),("STRING_database", str),("STRING_textmining", str),("STRING_combined_score", str),("GIANT_score", str),("DataBaseCount",str),))
     
-    subgraph,candidate_names,annotation_names = generate_network(gmax,args.network,args.candidates,args.annotations,args.subname,args.connection_number,args.dedup)
+    subgraph,candidate_names,annotation_names,network_edges = generate_network(gmax,args.network,args.candidates,args.annotations,args.subname,args.connection_number,args.dedup)
 
     subgraph = prune_network(subgraph, args.degree, args.dbcount,args.degree_greater)
 
@@ -325,6 +325,7 @@ if __name__ == "__main__":
          n['position'] = {'x':2000 * p[0],'y':2000 * p[1]}
 
     #Write to output file.
+    network_edges.to_csv("edgelist.csv", index=False)
     with open(args.output, "w") as outfile:
          json.dump(cy, outfile)
          
