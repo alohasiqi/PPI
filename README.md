@@ -1,6 +1,6 @@
 # network-ppi
 
-This program is a pipeline to generate JSON and XML files for use with Cytoscape for visualizing a protein-protein interaction network.
+This program is a pipeline to generate JSON file for use with Cytoscape and the complete interaction lists of desired nodes for visualizing a protein-protein interaction network. 
 
 ## Installation
 Python NetworkX
@@ -9,6 +9,8 @@ Cytoscape and the enhancedGraphics Package
 The enhancedGraphics Package is used for multi-color nodes and can be installed from the link:
 https://apps.cytoscape.org/apps/enhancedgraphics
 
+## Authors
+Rohan Alibutud, Xiaolong Cao, Siqi Sun, Anthony Wong 
 
 ## Usage
 ```
@@ -26,9 +28,9 @@ Usage:
   -dg <degree_greater> Remove edges with a degree greater than the specified value 
   -i <int_nodes>   Flag to remove annotation nodes that do not connect to at least 2 candidate nodes
   -s <subgraph_id> Specific specific candidate gene lists to graph
-  -o <output>     name of output .json file. Default network.json
+  -o <output>     name of output .json file. Default network.json. Default Selected PPI list edgelist.csv
   -m <connection_number>    Add intermediate nodes to the graph that connect to at least(>) a number of candidate genes (connection_count)
-  -r <rm_dupintermediates>    Remove intermediate nodes that have the same connections to the candidate/desired nodes and randomly keep one representative intermediate node, valid only when -m <connection_number>  is not None
+  -r <rm_dupintermediates>    Remove intermediate nodes that have the same connections to the candidate/desired nodes and randomly keep one representative intermediate node, valid only when -m <connection_number> is not None
 ```
 ## Dependencies
 Python packages: pandas, networkx
